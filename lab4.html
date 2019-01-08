@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>Lr4</title>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ <style type="text/css">
+ h1{
+ color: rgb(0, 174, 255);
+ }
+ h2{
+ color: blue;
+ }
+ table{
+ border: 1px;
+ width: 50%;
+ }
+ .text {
+ margin: 0 5px 5px 5px;
+ background-color: rgb(137, 247, 156);
+ }
+ </style>
+ <script type="text/javascript">
+
+ function addEl() {
+ var n = document.getElementById("name").value;
+ var c = document.getElementById("coast").value;
+ if (isNaN(c) || c == '') {
+ alert("Пожалуйста введите цену книги корректно!")
+ }
+ else {
+ var newRow = document.createElement("tr");
+ var newCell = newRow.insertCell(0);
+ newCell.innerHTML = n;
+ var newCell = newRow.insertCell(1);
+ newCell.innerHTML = c;
+ newRow.className = "text";
+ newRow.onmouseover = mouseOver;
+ newRow.onmouseout = mouseOut;
+ newRow.onclick = press;
+ var d = document.getElementById("t1");
+ d.appendChild(newRow);
+ }
+ }
+ function press(event) {
+ var tab = document.getElementById("t2");
+ var fl = true;
+ var ell = event.target.parentElement.children[0].innerHTML;
+ for (i = 1; i < tab.children.length; i++) {
+ var sto = tab.children[i];
+ var con = sto.children[0].innerHTML;
+ if (con == ell) {
+ tab.children[i].children[2].innerHTML = Number.parseInt(tab.children[i].children[2].innerHTML) +
+1;
+ fl = false;
+ }
+ }
+ if (fl) {
+ var ntr = document.createElement("tr");
+ ntr.innerHTML = event.target.parentNode.innerHTML;
+ var ifi = ntr.insertCell(2);
+ ifi.innerHTML = 1;
+ ntr.className = "text";
+ ntr.onmouseover = mouseOver;
+ ntr.onmouseout = mouseOut;
+ var d = document.getElementById("t2");
+ d.appendChild(ntr);
+ }
+ }
+ function mouseOver(event) {
+ event.target.style.backgroundColor = "red";
+ }
+ function mouseOut(event) {
+ event.target.style.backgroundColor = "rgb(137, 137, 137)";
+ }
+ function sum() {
+ var tabl = document.getElementById("t2");
+ var s = 0;
+ for (stro = 1; stro < tabl.children.length; stro++) {
+ var chen = tabl.children[stro].children[1].innerHTML;
+ var mno = tabl.children[stro].children[2].innerHTML;
+ s = s + (Number(chen) * Number(mno));
+ document.getElementById("sum").value = s;
+ }
+ }
+ </script>
+</head>
+<body>
+ <div>
+ <h1>
+ Заказ книг онлайн
+ </h1>
+ <h2>
+ Добавьте книгу :
+ </h2>
+ <p>Книга
+ <input id="name" type="text"> Стоимость
+ <input id="coast" type="text" name= "cost">
+ </p>
+ <p>
+ <button onclick="addEl()">Добавить</button>
+ </p>
+ <h2>
+ Выберите Книгу :
+ </h2>
+ </div>
+ <div>
+ <table id="t1">
+ <tr>
+ <th>
+ Книга
+ </th>
+ <th>
+ Цена
+ </th>
+ </tr>
+ <tr class="text" onclick="press(event)" onMouseOut="mouseOut(event)"
+onMouseOver="mouseOver(event)">
+ <td>Мастер и Маргарита</td>
+ <td>500</td>
+ </tr>
+ <tr class="text" onclick="press(event)" onMouseOut="mouseOut(event)"
+onMouseOver="mouseOver(event)">
+ <td>Война и Мир</td>
+ <td>300</td>
+ </tr>
+ <tr class="text" onclick="press(event)" onMouseOut="mouseOut(event)"
+onMouseOver="mouseOver(event)">
+<td>Основы программирования</td>
+ <td>600</td>
+ </tr>
+ <tr class="text" onclick="press(event)" onMouseOut="mouseOut(event)"
+onMouseOver="mouseOver(event)">
+ <td>Сопротивление материалов</td>
+ <td>100</td>
+ </tr>
+ <tr class="text" onclick="press(event)" onMouseOut="mouseOut(event)"
+onMouseOver="mouseOver(event)">
+ <td>Затеряный мир</td>
+ <td>200</td>
+ </tr>
+ </table>
+ </div>
+ <h2>Ваши покупки:</h2>
+ <table id="t2">
+ <tr>
+ <th>Наименование</th>
+ <th>Стоимость</th>
+ <th>Количество</th>
+ </tr>
+ </table>
+<button onclick="sum()" class="b">Расчет</button>
+ <input type="text" id="sum">
+</body>
+</html>
